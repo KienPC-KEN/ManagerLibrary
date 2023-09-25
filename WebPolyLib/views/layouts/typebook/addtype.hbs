@@ -1,0 +1,29 @@
+<div class="col-sm-9 mt-5">
+    <div class="mt-2">
+        <Text style="color: #6B6B6B;
+                        font-size: 36px;
+                        font-family: Poppins;
+                        font-weight: 600;
+                        letter-spacing: 0.36px;
+                        word-wrap: break-word">Thêm thể loại</Text>
+    </div>
+    <div class="row mt-3 rounded-3 d-flex justify-content-center m-5" style="height: 800px; background-color: #F5F6F8;">
+        <div class="row">
+            <form action="/addtype" method="POST">
+                <div class="mb-3">
+                    <div class="row">
+                        <label for="exampleInputEmail1" class="form-label">Tên thể loại <span
+                                class="text-danger">*</span></label>
+                    </div>
+                    <input type="text" class="form-control" id="nametypebook" name="name">
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button class="btn p-2" type="submit"
+                        style="background-color: #8C2100; color: white; width: 400px;height: 50px;">Thêm loại
+                        sách</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

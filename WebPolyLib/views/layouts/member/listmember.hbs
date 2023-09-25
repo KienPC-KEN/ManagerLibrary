@@ -1,0 +1,98 @@
+<div class="col-sm-9">
+    <div class="mt-2">
+        <Text style="color: #6B6B6B;
+                        font-size: 36px;
+                        font-family: Poppins;
+                        font-weight: 600;
+                        letter-spacing: 0.36px;
+                        word-wrap: break-word">Danh Sách Thành Viên</Text>
+    </div>
+    <form class="d-flex" method="get" action="/searchMember">
+        <input class="form-control me-2" name="searchString" type="search" placeholder="Tìm Kiếm theo số điện thoại" aria-label="Search" style="height:60px;">
+    </form>
+    <table class="table table-hover mt-3">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Tên thành viên</th>
+                <th scope="col">Số điện thoại</th>
+                <th scope="col">Ảnh</th>
+                <th scope="col">Tùy chọn</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr class="text-center">
+                <td scope="row">{{this.name}}</td>
+                <td>{{this.phone}}</td>
+                <td>
+                    <div class="shadow-sm p-3 rounded" style="width: 80px; margin-left: 180px;">
+                        <img src="{{this.img}}" alt="" width="50px" height="50px">
+                    </div>
+                </td>
+                <td>
+                    <div class="d-grid gap-2 d-md-block">
+                        <label for="">
+                            <form action="/getIdMember" method="POST">
+                                <button class="btn btn-primary" onclick="window.location.href='/updatemember'"
+                                    name="_id" value="{{this._id}}">Sửa</button>
+                            </form>
+                        </label>
+                        <button type="button" data-bs-whatever="{{this._id}}" data-bs-whatever2="{{this.name}}"
+                            class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Xóa
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Xóa loại sách</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn có muốn xóa thành viên này đi không? <br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Không</button>
+                                        <form action="/deletemember" method="POST">
+                                            <button type="submit" class="btn btn-danger"> <input style="display: none;"
+                                                    type="text" name="id">
+                                                Có</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<script>const exampleModal = document.getElementById('exampleModal')
+    exampleModal.addEventListener('show.bs.modal', event => {
+        // Button that triggered the modal
+        const button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        const recipient = button.getAttribute('data-bs-whatever')
+        const recipient2 = button.getAttribute('data-bs-whatever2')
+        // If necessary, you could initiate an Ajax request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        const modalTitle = exampleModal.querySelector('.modal-title')
+        const modalBody = exampleModal.querySelector('.modal-body')
+        const modalFooterInput = exampleModal.querySelector('.modal-footer input')
+
+        modalTitle.textContent = `Bạn có chắc chắn muốn xóa?`
+        modalBody.textContent = `Sách muốn xóa: ${recipient2}`
+        modalFooterInput.value = recipient
+    })</script>

@@ -1,0 +1,138 @@
+{{!-- Kết thúc Phần Menu --}}
+<div class="col-sm-9">
+    <h2 class="mt-5 mx-5" style="color: #6B6B6B;">Trang Chủ</h2>
+
+    {{!-- Phần search --}}
+    <nav class="navbar" style="width: 1125px; height: 60px; background-color: white;">
+        <div class="container-fluid mx-5">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success 	fa fa-search" type="submit"></button>
+            </form>
+        </div>
+    </nav>
+    {{!-- Kết thúc Phần search --}}
+
+    {{!--Phần Tổng --}}
+    <div class="container row mt-4">
+        <div class="rounded shadow-sm " style="background-color: white; width: 240px; margin-left: 40px;">
+            <p class="border rounded-circle shadow-lg text-center pt-3 mb-3 mx-2 mt-3 fas fa-money-check-alt"
+                style="background-color: white; height: 50px; width: 50px;">
+            </p>
+            <p class="mx-2" style="color: #64748B; font-size: 14px;">Tổng doanh thu</p>
+            <h3 class="mx-2 pb-3">{{totalPriceString}} VNĐ</h3>
+        </div>
+        <div class="rounded shadow-sm ms-4" style="background-color: white; width: 240px;">
+            <p class="border rounded-circle shadow-lg text-center pt-3 mb-3 mx-2 mt-3 fas fa-money-check-alt"
+                style="background-color: white; height: 50px; width: 50px;">
+            </p>
+            <p class="mx-2" style="color: #64748B; font-size: 14px;">Tổng phiếu mượn</p>
+            <h3 class="mx-2 pb-3">{{totalLoan}}</h3>
+        </div>
+        <div class="rounded shadow-sm ms-4" style="background-color: white; width: 240px;">
+            <p class="border rounded-circle shadow-lg text-center pt-3 mb-3 mx-2 mt-3 fas fa-money-check-alt"
+                style="background-color: white; height: 50px; width: 50px;">
+            </p>
+            <p class="mx-2" style="color: #64748B; font-size: 14px;">Tổng thành viên</p>
+            <h3 class="mx-2 pb-3">{{totalMember}}</h3>
+        </div>
+        <div class="rounded shadow-sm ms-4" style="background-color: white; width: 240px;">
+            <p class="border rounded-circle shadow-lg text-center pt-3 mb-3 mx-2 mt-3 fas fa-money-check-alt"
+                style="background-color: white; height: 50px; width: 50px;">
+            </p>
+            <p class="mx-2" style="color: #64748B; font-size: 14px;">Tổng thủ thư</p>
+            <h3 class="mx-2 pb-3">{{totalUser}}</h3>
+        </div>
+    </div>
+    {{!-- Kết thúc Phần Tổng --}}
+
+    {{!-- Phần biểu đồ --}}
+    <div class="row mt-5">
+
+        {{!-- Biểu đồ doanh thu --}}
+
+        <div class="col-9" style="margin: auto;">
+            <h4 class="pb-2">Biểu đồ doanh thu</h4>
+            <canvas id="myColumnChartPrice"></canvas>
+        </div>
+
+        <!-- Kịch bản tạo biểu đồ sẽ được gọi sau khi tải trang -->
+        <script>
+            const dataPriceViews = {{{ JSONstringify totalPriceData }}};
+            const dataPrice = dataPriceViews.map(item => item.totalPrice);
+            const labelsPriceMonth = {{{ JSONstringify dataMonth }}};
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var ctx = document.getElementById('myColumnChartPrice').getContext('2d');
+
+                const chartDataPrice = {
+                    labels: labelsPriceMonth,
+                    datasets: [{
+                        label: 'Doanh thu',
+                        backgroundColor: 'rgba(27, 89, 248, 0.2)',
+                        borderColor: 'rgba(27, 89, 248, 1)',
+                        borderWidth: 1,
+                        data: dataPrice,
+
+                    }]
+                };
+                var myChartPrice = new Chart(ctx, {
+                    type: 'bar',
+                    data: chartDataPrice,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            });
+
+        </script>
+
+        <div class="col-9 mt-5" style="margin: auto;">
+            <h4 class="pb-2">Biểu đồ lượt mượn</h4>
+            <canvas id="mycolumnChartLoans"></canvas>
+        </div>
+
+        <!-- Kịch bản tạo biểu đồ sẽ được gọi sau khi tải trang -->
+        <script>
+            const dataLoanViews = {{{ JSONstringify totalLoansData }}};
+            const dataLoans = dataLoanViews.map(item => item.totalLoans);
+            const labelsLoansMonth = {{{ JSONstringify dataMonth }}};
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var ctx = document.getElementById('mycolumnChartLoans').getContext('2d');
+
+                const chartDataLoans = {
+                    labels: labelsLoansMonth,
+                    datasets: [{
+                        label: 'Lượt mượn',
+                        backgroundColor: 'rgba(27, 89, 248, 0.2)',
+                        borderColor: 'rgba(27, 89, 248, 1)',
+                        borderWidth: 1,
+                        data: dataLoans,
+
+                    }]
+                };
+
+                var myChartLoans = new Chart(ctx, {
+                    type: 'bar',
+                    data: chartDataLoans,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            });
+
+        </script>
+    </div>
+
+</div>

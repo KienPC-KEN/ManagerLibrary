@@ -1,0 +1,112 @@
+<div class="col-sm-9 mt-5">
+    <div class="mt-2">
+        <Text style="color: #6B6B6B;
+                        font-size: 36px;
+                        font-family: Poppins;
+                        font-weight: 600;
+                        letter-spacing: 0.36px;
+                        word-wrap: break-word">Sửa Người Dùng</Text>
+    </div>
+    <div class="row mt-3 rounded-3 d-flex justify-content-center m-5" style="height: 800px; background-color: #F5F6F8;">
+
+        <div class="row" style="margin-top: 0px;">
+            <form action="/updateuser" method="POST" >
+                {{#each data}}
+                <div class="mb-3">
+                <div class="text-center mt-4">
+                    <img id="image" src="{{this.img}}" alt="Lỗi"
+                        style="width: 120px; height: 120px;">
+                </div>
+                <div class="row">
+                    <label for="exampleInputEmail1" class="form-label">Ảnh<span class="text-danger">*</span></label>
+                </div>
+                <input onchange="loadImage(event)" type="text" name="img" class="form-control" id="inputImg"
+                    aria-describedby="emailHelp" value="{{this.img}}">
+                <script>
+                    var loadImage = function (event) {
+                        var img = document.getElementById("image");
+                        var inputImg = event.target.value; // Lấy đường dẫn ảnh từ giá trị của thẻ input
+                        img.src = inputImg; // Gán đường dẫn ảnh vào thuộc tính src của thẻ img
+                    };  
+                </script>
+            </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <label for="exampleInputEmail1" class="form-label">Tên người dùng <span
+                                class="text-danger">*</span></label>
+                    </div>
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp" value="{{name}}">
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <label for="exampleInputEmail1" class="form-label">Địa chỉ <span
+                                class="text-danger">*</span></label>
+                    </div>
+                    <input type="text" name="address" value="{{address}}" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <label for="exampleInputEmail1" class="form-label">Điện thoại <span
+                                class="text-danger">*</span></label>
+                    </div>
+                    <input type="text" name="phone" value="{{phone}}" class="form-control" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <label for="exampleInputEmail1" class="form-label">Mật khẩu <span
+                                class="text-danger">*</span></label>
+                    </div>
+                    <input type="text" name="password" value="{{password}}" class="form-control"
+                        id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <label for="exampleInputEmail1" class="form-label">Trạng thái <span
+                                class="text-danger">*</span></label>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Trạng thái</label>
+                            <select class="form-select" name="selectStatus">
+                                <option value="{{status}}">{{status}}</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Thủ thư">Thủ thư</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button class="btn p-2" type="submit"
+                        style="background-color: #8C2100; color: white; width: 400px;height: 50px;">Sửa người
+                        dùng</button>
+                </div>
+
+                {{/each}}
+
+            </form>
+            <!-- Modal for Success Message -->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="successModalLabel">Thành công!</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Cập nhật người dùng thành công.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>

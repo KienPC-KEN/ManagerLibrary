@@ -1,0 +1,43 @@
+<div class="col-sm-9 mt-5">
+    <div class="mt-2">
+        <Text style="color: #6B6B6B;
+                        font-size: 36px;
+                        font-family: Poppins;
+                        font-weight: 600;
+                        letter-spacing: 0.36px;
+                        word-wrap: break-word">Danh sách phiếu mượn</Text>
+    </div>
+    <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Tìm Kiếm" aria-label="Search" style="height:60px;">
+    </form>
+    <table class="table table-hover mt-3">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Thủ thư</th>
+                <th scope="col">Người mượn</th>
+                <th scope="col">Tên sách</th>
+                <th scope="col">Tùy chọn</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr class="text-center">
+                <td scope="row">{{this._idUser.name}}</td>
+                <td>{{this._idMember.name}}</td>
+                <td>{{this._idBook.name}}</td>
+                <td>
+                    <div class="d-grid gap-2 d-md-block">
+                        <form action="/getIdLoanSlip" method="post">
+                            <button value="{{this._id}}" name="_id" class="btn btn-primary "
+                                onclick="window.location.href='/infomation/'">Xem chi
+                                tiết</button>
+                        </form>
+
+                    </div>
+
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
